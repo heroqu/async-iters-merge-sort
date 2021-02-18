@@ -81,7 +81,7 @@ and have a guarantee that merged iterable would yield items with timestamp that 
 
 ### Items timing
 
-At each selection round we wait till _all_ of the sources are ready, which means each of them has received its particular next value (or has been put aside as exhausted). E.g. to yield the very first item it takes to wait till every source gets its first item. From that point on each next item is going to be yielded basically as soon as there is new arrival from one of the sources.
+At each selection round we wait till _all_ of the sources are ready, i.e.  each has received its next value (or got exhausted and put aside). E.g. to yield the very first item it takes to wait till every source gets its first item. From that point on we have to wait till last selected source gets its next item (or gets exhausted).
 
 ## One more example
 
