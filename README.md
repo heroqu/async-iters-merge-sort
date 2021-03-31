@@ -20,9 +20,9 @@ async function* arrayToAsyncIter(arr) {
 
 // let's say we have 3 async iterators as sources:
 const sources = [
-  [10, 20, 30],
-  [21, 41, 61],
-  [32, 52, 72],
+  [10, 20, 30], // source #1 (with 3 items)
+  [21, 41, 61], // source #2
+  [32, 52, 72], // source #3
 ].map(arrayToAsyncIter);
 
 // Now we merge them with simple "natural" sorting:
@@ -81,7 +81,7 @@ and have a guarantee that merged iterable would yield items with timestamp that 
 
 ### Items timing
 
-At each selection round we wait till _all_ of the sources are ready, i.e.  each has received its next value (or got exhausted and put aside). E.g. to yield the very first item it takes to wait till every source gets its first item. From that point on we have to wait till last selected source gets its next item (or gets exhausted).
+At each selection round we wait till _all_ of the sources are ready, i.e. each has received its next value (or got exhausted and put aside). E.g. to yield the very first item it takes to wait till every source gets its first item. From that point on we have to wait till last selected source gets its next item (or gets exhausted).
 
 ## One more example
 
