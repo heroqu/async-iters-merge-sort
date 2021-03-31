@@ -5,9 +5,9 @@ async function* arrayToAsyncIter<T>(arr: T[]) {
 }
 
 const NUMBERS = [
-  [10, 20, 30],
-  [21, 41, 61],
-  [32, 52, 72],
+  [10, 20, 30], // source #1
+  [21, 41, 61], // source #2
+  [32, 52, 72], // source #3
 ];
 const NUMBERS_REVERSED = NUMBERS.map((nums) => [...nums].reverse());
 const STRINGS = NUMBERS.map((nums) => nums.map(String));
@@ -87,6 +87,23 @@ describe('Merge sort async iter of numbers', () => {
     const expected: number[] = [];
 
     const inputs = [[], [], []].map(arrayToAsyncIter);
+
+    const mergedSorted = asyncItersMergeSort<number>(inputs, (item) => item);
+
+    const result: number[] = [];
+    for await (const item of mergedSorted) {
+      result.push(item);
+    }
+
+    expect(result).toEqual(expected);
+  });
+
+  test('Works with no inputs at all', async () => {
+    const expected: number[] = [];
+
+    const inputs: AsyncGenerator<any, void, undefined>[] = [].map(
+      arrayToAsyncIter,
+    );
 
     const mergedSorted = asyncItersMergeSort<number>(inputs, (item) => item);
 
